@@ -11,6 +11,34 @@
 
 -----
 
+-- member_db.sql
+-- IntelliJ IDEA 데이터베이스 연동용
+
+-- 데이터베이스 생성 및 사용
+CREATE DATABASE IF NOT EXISTS member_db;
+USE member_db;
+
+-- 회원 테이블 생성
+CREATE TABLE members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    phone VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 테스트용 샘플 데이터
+INSERT INTO members (username, password, email, name, phone) VALUES
+('admin', 'admin123', 'admin@test.com', '관리자', '010-0000-0000'),
+('user1', 'pass123', 'user1@test.com', '홍길동', '010-1111-1111'),
+('user2', 'pass456', 'user2@test.com', '김영희', '010-2222-2222');
+
+-- 데이터 확인
+SELECT * FROM members;
+
+
 ### 🧬 2단계: 핵심 코드 개발 (파일 2개로 축소)
 
 이제 `src` 폴더에 아래 **2개의 자바 파일**만 생성하고 코드를 붙여넣으세요.
@@ -169,3 +197,4 @@ public class Main {
 3.  **작업 후 `git commit` & `git push`**: 내가 작업한 내용을 팀원들과 공유하세요.
 
 이제 훨씬 적은 파일로 모든 요구사항을 만족시키면서 실습을 진행할 수 있습니다. 바로 시작해보세요\!
+

@@ -1,4 +1,4 @@
-
+# MySQL & Java 연동 실습 프로젝트 (회원 관리 시스템)
 ## 각자 db.proporties 생성
 ```java
 DB_URL= // url 업로드
@@ -205,4 +205,5 @@ public class Main {
 3.  **작업 후 `git commit` & `git push`**: 내가 작업한 내용을 팀원들과 공유하세요.
 
 이제 훨씬 적은 파일로 모든 요구사항을 만족시키면서 실습을 진행할 수 있습니다. 바로 시작해보세요\!
+
 

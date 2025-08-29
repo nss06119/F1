@@ -52,7 +52,6 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Properties;
 
 // DB 연결과 SQL 실행을 모두 담당하는 클래스
@@ -63,12 +62,12 @@ public class MemberDAO {
         Properties properties = new Properties();
         properties.load(new FileInputStream("db.properties"));
         // MySQL 드라이버 로딩. DB 종류에 따라 변경 필요.
-        Class.forName("com.mysql.cj.jdbc.Driver"); 
-        
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
         return DriverManager.getConnection(
-            properties.getProperty("DB_URL"),
-            properties.getProperty("DB_USER"),
-            properties.getProperty("DB_PASSWORD")
+                properties.getProperty("DB_URL"),
+                properties.getProperty("DB_USER"),
+                properties.getProperty("DB_PASSWORD")
         );
     }
 
@@ -77,11 +76,11 @@ public class MemberDAO {
         String sql = "INSERT INTO members (id, name, email) VALUES (?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+
             pstmt.setString(1, member.getId());
-            pstmt.setString(2, member.getName());
+            pstmt.setString(2, member.getUsername());
             pstmt.setString(3, member.getEmail());
-            
+
             return pstmt.executeUpdate(); // 실행된 행의 수 리턴 (1이면 성공)
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,11 +93,11 @@ public class MemberDAO {
         String sql = "UPDATE members SET name = ?, email = ? WHERE id = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, member.getName());
+
+            pstmt.setString(1, member.getUsername());
             pstmt.setString(2, member.getEmail());
             pstmt.setString(3, member.getId());
-            
+
             return pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,9 +110,9 @@ public class MemberDAO {
         String sql = "DELETE FROM members WHERE id = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+
             pstmt.setString(1, id);
-            
+
             return pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,10 +141,19 @@ public class Main {
             this.name = name;
             this.email = email;
         }
+
         // Getter 메소드들
-        public String getId() { return id; }
-        public String getName() { return name; }
-        public String getEmail() { return email; }
+        public String getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getEmail() {
+            return email;
+        }
     }
 
 
@@ -159,7 +167,7 @@ public class Main {
         Member newMember = new Member("user123", "박코드", "park@coding.com");
         int insertResult = dao.insertMember(newMember);
         if (insertResult > 0) {
-            System.out.println("  -> " + newMember.getName() + " 님 정보 추가 성공!");
+            System.out.println("  -> " + newMember.getUsername() + " 님 정보 추가 성공!");
         } else {
             System.out.println("  -> 추가 실패.");
         }
@@ -173,7 +181,7 @@ public class Main {
         } else {
             System.out.println("  -> 수정 실패.");
         }
-        
+
         // 3. 회원 삭제 (DELETE 테스트)
         System.out.println("\n[3. 회원 삭제]");
         int deleteResult = dao.deleteMember("user123");

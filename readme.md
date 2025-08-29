@@ -1,16 +1,16 @@
 
-### 🏁 1단계: 프로젝트 준비 및 Git 설정 (이전과 동일)
+## 각자 db.proporties 생성
+```java
+DB_URL= // url 업로드
 
-이 부분은 이전 답변과 **완전히 동일**하게 진행해주세요.
+// MySQL 사용자 이름 (일반적으로 'root')
+DB_USER=root
 
-1.  **리포지토리 생성 및 팀원 초대** (조장 외 다른 팀원)
-2.  **최초 프로젝트 Push** (팀장)
-3.  **`.gitignore` 파일 생성** 및 `db.properties` 등록
-4.  **팀원들의 `clone` 및 Git 사용자 설정**
-5.  각자 **`db.properties` 파일 생성** (DB 접속 정보 기입)
-
------
-
+// MySQL 비밀번호
+DB_PASSWORD=
+```
+## 데이터베이스
+```sql
 -- member_db.sql
 -- IntelliJ IDEA 데이터베이스 연동용
 
@@ -37,7 +37,7 @@ INSERT INTO members (username, password, email, name, phone) VALUES
 
 -- 데이터 확인
 SELECT * FROM members;
-
+```
 
 ### 🧬 2단계: 핵심 코드 개발 (파일 2개로 축소)
 
